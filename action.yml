@@ -1,0 +1,19 @@
+name: 'Install datactl'
+description: 'Install datactl into workflow`s environment'
+inputs:
+  version:
+    description: 'Tag version of datactl to install'
+    required: false
+    default: 'v0.8.2'
+  token:
+    description: 'GitHub PAT token to use to clone repo'
+    required: true
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+    - run: datactl.sh ${{ inputs.version }} ${{ inputs.token }}
+      shell: bash
+
