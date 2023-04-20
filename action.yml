@@ -14,6 +14,11 @@ runs:
   steps:
     - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
       shell: bash
+    - run: |
+        curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+        #export MAMBA_ROOT_PREFIX=/some/prefix  # optional, defaults to ~/micromamba
+        eval "$(./bin/micromamba shell hook -s posix)"
+      shell: bash
     - run: datactl.sh ${{ inputs.version }} ${{ inputs.token }}
       shell: bash
 
